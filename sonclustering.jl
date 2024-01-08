@@ -1,8 +1,8 @@
 using Convex
-using ECOS
-using SCS
-using COSMO
-using Tulip
+#using ECOS
+#using SCS
+#using COSMO
+#using Tulip
 using Random
 using LaTeXStrings
 using Statistics
