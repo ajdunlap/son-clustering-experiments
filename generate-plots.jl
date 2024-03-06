@@ -4,31 +4,18 @@ using Printf
 pythonplot()
 
 begin
-    lambdas = 1.0975:0.0025:1.125
-    pts = evenlySpacedBall2d(0.085)
-    results = doClustering(pts,lambdas)
-    vals = [(l,maximum(r[1])) for (l,r) in zip(lambdas,results) if r != Nothing]
-    ls = [v[1] for v in vals]
-    rs = [v[2] for v in vals]
-    plt = scatter(ls,rs,xlabel=L"$\lambda$",ylabel="number of clusters",legend=false,size=(290,220))
-    savefig(plt,"find-lambda1-0.085.tex")
+    lambdas = 1.09:0.0025:1.125
+    meshes = 0.0625:0.0075:0.115
 
-    pts = evenlySpacedBall2d(0.1)
-    results = doClustering(pts,lambdas)
-    vals = [(l,maximum(r[1])) for (l,r) in zip(lambdas,results) if r != Nothing]
-    ls = [v[1] for v in vals]
-    rs = [v[2] for v in vals]
-    plt = scatter(ls,rs,xlabel=L"$\lambda$",ylabel="number of clusters",legend=false,size=(290,220))
-    savefig(plt,"find-lambda1-0.1.tex")
-
-    pts = evenlySpacedBall2d(0.15)
-    results = doClustering(pts,lambdas)
-    vals = [(l,maximum(r[1])) for (l,r) in zip(lambdas,results) if r != Nothing]
-    ls = [v[1] for v in vals]
-    rs = [v[2] for v in vals]
-    plt = scatter(ls,rs,xlabel=L"$\lambda$",ylabel="number of clusters",legend=false,size=(290,220))
-    savefig(plt,"find-lambda1-0.15.tex")
-
+    for mesh in meshes
+        pts = evenlySpacedBall2d(mesh)
+        results = doClustering(pts,lambdas)
+        vals = [(l,maximum(r[1])) for (l,r) in zip(lambdas,results) if r != Nothing]
+        ls = [v[1] for v in vals]
+        rs = [v[2] for v in vals]
+        plt = scatter(ls,rs,xlabel=L"$\lambda$",ylabel="no. of clusters",legend=false,size=(290,140),xlim=(1.09,1.125),xticks=[1.09,1.10,1.11,1.12],yticks=[1,length(pts)])
+        savefig(plt,@sprintf("find-lambda1-%.4f.tex",mesh))
+    end
 
     pts = threeCircles(100,3.5,1.5,3,0.7,0.5,0.6)
 
