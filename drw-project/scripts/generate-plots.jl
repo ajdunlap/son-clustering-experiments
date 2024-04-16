@@ -1,4 +1,6 @@
-include("sonclustering.jl")
+using DrWatson
+quickactivate(@__DIR__)
+include(srcdir("sonclustering.jl"))
 using Printf
 
 pythonplot()
@@ -14,42 +16,28 @@ begin
         ls = [v[1] for v in vals]
         rs = [v[2] for v in vals]
         plt = scatter(ls,rs,xlabel=L"$\lambda$",ylabel="no. of clusters",legend=false,size=(290,140),xlim=(1.09,1.125),xticks=[1.09,1.10,1.11,1.12],yticks=[1,length(pts)])
-        savefig(plt,@sprintf("find-lambda1-%.4f.tex",mesh))
+        savefig(plt,plotsdir(@sprintf("find-lambda1-%.4f.tex",mesh)))
     end
 
     pts = threeCircles(100,3.5,1.5,3,0.7,0.5,0.6)
 
-    clusters,xs = doClustering(pts,1.1)[1]
-    plt = plotClusters(pts,xs,clusters;show_cluster_reps=true)
-    savefig(plt,"three-circles-1.4.tex")
+    for lam = [1.1,2.4,3.0,3.4,3.6]
+        clusters,xs = doClustering(pts,1.1)[1]
+        plt = plotClusters(pts,xs,clusters;show_cluster_reps=true)
+        savefig(plt,plotsdir(@sprintf("three-circles-%.1f.tex",lam)))
+    end
 
-    clusters,xs = doClustering(pts,2.4)[1]
-    plt = plotClusters(pts,xs,clusters;show_cluster_reps=true)
-    savefig(plt,"three-circles-2.4.tex")
-
-    clusters,xs = doClustering(pts,3.0)[1]
-    plt = plotClusters(pts,xs,clusters;show_cluster_reps=true)
-    savefig(plt,"three-circles-3.0.tex")
-
-    clusters,xs = doClustering(pts,3.4)[1]
-    plt = plotClusters(pts,xs,clusters;show_cluster_reps=true)
-    savefig(plt,"three-circles-3.4.tex")
-
-    clusters,xs = doClustering(pts,3.6)[1]
-    plt = plotClusters(pts,xs,clusters;show_cluster_reps=true)
-    savefig(plt,"three-circles-3.6.tex")
-
-    include("200stochasticballs.jl")
+    include(datadir("200stochasticballs.jl"))
     clusters,xs = doClustering(pts,2)[1]
     plt = plotClusters(pts,xs,clusters;show_cluster_reps=false,size=(290,120))
     plot!(plt,t->cos(t)-1.05,sin,0,2pi,linestyle=:dot,color=:grey)
     plot!(plt,t->cos(t)+1.05,sin,0,2pi,linestyle=:dot,color=:grey)
-    savefig(plt,"shattered-balls.tex")
+    savefig(plt,plotsdir("shattered-balls.tex"))
     clusters,xs = doClustering(pts,2.15)[1]
     plt = plotClusters(pts,xs,clusters;show_cluster_reps=false,size=(290,120))
     plot!(plt,t->cos(t)-1.05,sin,0,2pi,linestyle=:dot,color=:grey)
     plot!(plt,t->cos(t)+1.05,sin,0,2pi,linestyle=:dot,color=:grey)
-    savefig(plt,"cohesive-balls.tex")
+    savefig(plt,plotsdir("cohesive-balls.tex"))
 end
 
 begin
@@ -61,6 +49,6 @@ begin
     results = doClustering(pts,lambdas)
     for ((clusters,xs),l) in zip(results,lambdas)
         plt = plotClusters(pts,xs,clusters;show_cluster_reps=false,size=(290,120))
-        savefig(plt,@sprintf("two-octagons-%.2f.tex",l))
+        savefig(plt,plotsdir(@sprintf("two-octagons-%.2f.tex",l)))
     end
 end

@@ -1,13 +1,10 @@
+using DrWatson
+@quickactivate(@__DIR__)
 using Convex
-#using ECOS
-#using SCS
-#using COSMO
-#using Tulip
 using Random
 using LaTeXStrings
 using Statistics
 using Plots
-using LaTeXStrings
 using Clarabel
 import MathOptInterface as MOI
 
