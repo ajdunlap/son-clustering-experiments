@@ -21,8 +21,8 @@ begin
 
     pts = threeCircles(100,3.5,1.5,3,0.7,0.5,0.6)
 
-    for lam = [1.1,2.4,3.0,3.4,3.6]
-        clusters,xs = doClustering(pts,1.1)[1]
+    for lam = [1.1,2.4,3.4,3.6]
+        clusters,xs = doClustering(pts,lam)[1]
         plt = plotClusters(pts,xs,clusters;show_cluster_reps=true)
         savefig(plt,plotsdir(@sprintf("three-circles-%.1f.tex",lam)))
     end
