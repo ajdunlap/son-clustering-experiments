@@ -1,7 +1,9 @@
 # son-clustering-experiments
 Code to generate the figures in Dunlap and Mourrat, "Sum-of-norms clustering does not separate nearby balls"
 
-To generate the figures, run `julia generate-plots.jl`
+To generate the figures, run `julia scripts/generate-plots.jl`
+
+# More general information
 
 This code base is using the [Julia Language](https://julialang.org/) and
 [DrWatson](https://juliadynamics.github.io/DrWatson.jl/stable/)
