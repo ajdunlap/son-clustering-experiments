@@ -1,0 +1,4 @@
+#!/bin/bash
+#$ -cwd
+~/.juliaup/bin/julia --version
+~/.juliaup/bin/julia scripts/generate-plots.jl
